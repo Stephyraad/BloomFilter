@@ -4,13 +4,13 @@
 //    -> p = false positive rate
 var BloomFilter = function(n, p) {
   this.p = p;
-  // max size of the Array
+  // max size of the array
   this.max=  Math.floor( -n * Math.log(p) / (Math.log(2)^2) );
-  // number of Hashing Functions
+  // number of hashing functions
   this.k= Math.floor( this.max/n * Math.log(2) );
-  //Array where to store the bits
+  // array where to store the bits
   this.bitArray= [];
-  // Array of returned indexes from Hashing Functions
+  // array of returned indexes from hashing functions
   this.indexesArray = [];
   
   var defaults = {
@@ -21,13 +21,14 @@ var BloomFilter = function(n, p) {
   if (!this.max) { this.max = defaults.max; } 
   if (!this.k) { this.k = defaults.k; }
 
-  // Populate bitArray with 0s
+  // populate bitArray with 0s
   for(var i =0; i< this.max; i++){
   	this.bitArray[i] = 0;
   }
 
   this.getIndexHashing = function(value, num) {
     var hash = num;
+   
     for (var i = 0; i < value.length; i++) {
       hash = (hash<<5) + hash + value.charCodeAt(i);
       hash = hash & hash; // Convert to 32bit integer
@@ -38,7 +39,7 @@ var BloomFilter = function(n, p) {
 };
 
 
-// Method to set bitArray at location i to true
+// method to set bitArray at location i to true
 BloomFilter.prototype.add = function(value) {
   var num =0;
 
@@ -52,9 +53,10 @@ BloomFilter.prototype.add = function(value) {
   }
 };
 
-//Method to check if value at index is 1
+// method to check if value at index is 1
 BloomFilter.prototype.checkIndex = function(value) {
   var num =0;
+  
   for(var i=0; i< this.k; i++) {
     this.indexesArray[i] = this.getIndexHashing(value, num);
     num+=5000;
