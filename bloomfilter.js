@@ -46,9 +46,9 @@ BloomFilter.prototype.add = function(value) {
     num+=5000;
   }
 
-	for(var i = 0; i< this.indexesArray.length; i++) {
-		this.bitArray[this.indexesArray[i]] = 1;
-	}
+  for(var i = 0; i< this.indexesArray.length; i++) {
+    this.bitArray[this.indexesArray[i]] = 1;
+  }
 };
 
 //Method to check if value at index is 1
