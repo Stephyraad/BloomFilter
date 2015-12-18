@@ -14,9 +14,9 @@ var BloomFilter = function(n, p) {
   this.indexesArray = [];
   
   var defaults = {
-		max: 100,
-		k: 2
-	};
+    max: 100,
+    k: 2
+  };
   
   if (!this.max) { this.max = defaults.max; } 
   if (!this.k) { this.k = defaults.k; }
