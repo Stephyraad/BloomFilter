@@ -3,21 +3,22 @@
 //    -> n ~ number of items you expect to insert in the bitArray
 //    -> p = false positive rate
 var BloomFilter = function(n, p) {
-	this.p = p;
+  this.p = p;
   // max size of the Array
-	this.max=  Math.floor( -n * Math.log(p) / (Math.log(2)^2) );
+  this.max=  Math.floor( -n * Math.log(p) / (Math.log(2)^2) );
   // number of Hashing Functions
-	this.k= Math.floor( this.max/n * Math.log(2) );
+  this.k= Math.floor( this.max/n * Math.log(2) );
   //Array where to store the bits
   this.bitArray= [];
   // Array of returned indexes from Hashing Functions
-	this.indexesArray = [];
+  this.indexesArray = [];
   
-	var defaults = {
+  var defaults = {
 		max: 100,
 		k: 2
 	};
-	if (!this.max) { this.max = defaults.max; } 
+  
+  if (!this.max) { this.max = defaults.max; } 
   if (!this.k) { this.k = defaults.k; }
 
   // Populate bitArray with 0s
@@ -26,13 +27,13 @@ var BloomFilter = function(n, p) {
   }
 
   this.getIndexHashing = function(value, num) {
-  var hash = num;
-  for (var i = 0; i < value.length; i++) {
-    hash = (hash<<5) + hash + value.charCodeAt(i);
-    hash = hash & hash; // Convert to 32bit integer
-    hash = Math.abs(hash);
-  }
-  return hash % this.max;
+    var hash = num;
+    for (var i = 0; i < value.length; i++) {
+      hash = (hash<<5) + hash + value.charCodeAt(i);
+      hash = hash & hash; // Convert to 32bit integer
+      hash = Math.abs(hash);
+    }
+    return hash % this.max;
   };
 };
 
